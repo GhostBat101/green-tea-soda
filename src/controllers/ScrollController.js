@@ -15,8 +15,20 @@ class ScrollController {
     this.scrollModel.subscribe((snapshot) => this.navigationView.render(snapshot));
     this.navigationView.bindNavJump((index) => this.scrollModel.setVerticalSection(index));
     this.navigationView.bindHorizontalControls(
-      () => this.scrollModel.prevHorizontal(),
-      () => this.scrollModel.nextHorizontal()
+      () => {
+        if (this.scrollModel.currentHorizontalPanel > 0) {
+          this.scrollModel.prevHorizontal();
+        } else {
+          this.scrollModel.prevVertical();
+        }
+      },
+      () => {
+        if (this.scrollModel.currentHorizontalPanel < 3) {
+          this.scrollModel.nextHorizontal();
+        } else {
+          this.scrollModel.nextVertical();
+        }
+      }
     );
 
     window.addEventListener("wheel", (e) => this.handleWheel(e), { passive: false });
@@ -29,36 +41,60 @@ class ScrollController {
 
   handleWheel(e) {
     if (this.scrollModel.isMobile) return;
-    if (Math.abs(e.deltaY) < SCROLL_CONFIG.wheelThresholdPx) return;
+    const deltaY = e.deltaY;
+    const deltaX = e.deltaX;
+    const absY = Math.abs(deltaY);
+    const absX = Math.abs(deltaX);
+
+    if (absY < SCROLL_CONFIG.wheelThresholdPx && absX < SCROLL_CONFIG.wheelThresholdPx) return;
     e.preventDefault();
 
     const now = Date.now();
     if (!this.scrollModel.canScroll(now)) return;
 
-    const direction = e.deltaY > 0 ? 1 : -1;
     const currentVSec = this.scrollModel.currentVerticalSection;
     const currentHPanel = this.scrollModel.currentHorizontalPanel;
 
     if (currentVSec === HORIZONTAL_SECTION_INDEX) {
-      if (direction > 0) {
+      if (absX > absY && absX >= SCROLL_CONFIG.wheelThresholdPx) {
+        if (deltaX > 0 && currentHPanel < 3) {
+          this.scrollModel.nextHorizontal();
+          this.scrollModel.markScrollTime(now);
+          return;
+        } else if (deltaX < 0 && currentHPanel > 0) {
+          this.scrollModel.prevHorizontal();
+          this.scrollModel.markScrollTime(now);
+          return;
+        }
+      }
+
+      if (deltaY > 0) {
         if (currentHPanel < 3) {
           this.scrollModel.nextHorizontal();
           this.scrollModel.markScrollTime(now);
           return;
+        } else {
+          this.scrollModel.nextVertical();
+          this.scrollModel.markScrollTime(now);
+          return;
         }
-      } else {
+      } else if (deltaY < 0) {
         if (currentHPanel > 0) {
           this.scrollModel.prevHorizontal();
+          this.scrollModel.markScrollTime(now);
+          return;
+        } else {
+          this.scrollModel.prevVertical();
           this.scrollModel.markScrollTime(now);
           return;
         }
       }
     }
 
-    if (direction > 0) {
+    if (deltaY > 0) {
       const moved = this.scrollModel.nextVertical();
       if (moved) this.scrollModel.markScrollTime(now);
-    } else {
+    } else if (deltaY < 0) {
       const moved = this.scrollModel.prevVertical();
       if (moved) this.scrollModel.markScrollTime(now);
     }
