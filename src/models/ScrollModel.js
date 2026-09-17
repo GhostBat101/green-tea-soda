@@ -43,10 +43,13 @@ class ScrollModel {
     this.lastScrollTime = now;
   }
 
-  setVerticalSection(index) {
+  setVerticalSection(index, preserveHorizontal = false) {
     const bounded = Math.max(0, Math.min(index, TOTAL_VERTICAL_SECTIONS - 1));
     if (this.currentVerticalSection !== bounded) {
       this.currentVerticalSection = bounded;
+      if (!preserveHorizontal && this.currentVerticalSection !== 2) {
+        this.currentHorizontalPanel = 0;
+      }
       this.calculateProgress();
       this.notify();
     }
@@ -63,7 +66,13 @@ class ScrollModel {
 
   nextVertical() {
     if (this.currentVerticalSection < TOTAL_VERTICAL_SECTIONS - 1) {
-      this.setVerticalSection(this.currentVerticalSection + 1);
+      const nextIndex = this.currentVerticalSection + 1;
+      this.currentVerticalSection = nextIndex;
+      if (nextIndex === 2) {
+        this.currentHorizontalPanel = 0;
+      }
+      this.calculateProgress();
+      this.notify();
       return true;
     }
     return false;
@@ -71,7 +80,13 @@ class ScrollModel {
 
   prevVertical() {
     if (this.currentVerticalSection > 0) {
-      this.setVerticalSection(this.currentVerticalSection - 1);
+      const prevIndex = this.currentVerticalSection - 1;
+      this.currentVerticalSection = prevIndex;
+      if (prevIndex === 2) {
+        this.currentHorizontalPanel = TOTAL_HORIZONTAL_PANELS - 1;
+      }
+      this.calculateProgress();
+      this.notify();
       return true;
     }
     return false;
