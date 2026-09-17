@@ -13,6 +13,7 @@ class NavigationProgressView {
     this.hPrevBtn = document.querySelector(SELECTORS.hPrevBtn);
     this.hNextBtn = document.querySelector(SELECTORS.hNextBtn);
     this.navJumps = document.querySelectorAll(SELECTORS.navJumps);
+    this.headerNavLinks = document.querySelectorAll(SELECTORS.navHeaderLinks);
   }
 
   bindNavJump(callback) {
@@ -20,7 +21,12 @@ class NavigationProgressView {
       btn.addEventListener("click", (e) => {
         const target = e.currentTarget.getAttribute("data-target-sec");
         if (target !== null) {
-          callback(parseInt(target, 10));
+          const sectionIndex = parseInt(target, 10);
+          callback(sectionIndex);
+          const targetSection = document.querySelector(`.v-section[data-sec-index="${sectionIndex}"]`);
+          if (targetSection && window.innerWidth < 768) {
+            targetSection.scrollIntoView({ behavior: "smooth" });
+          }
         }
       });
     });
@@ -88,7 +94,7 @@ class NavigationProgressView {
   }
 
   renderNavIndicators(verticalSection) {
-    this.navJumps.forEach(btn => {
+    this.headerNavLinks.forEach(btn => {
       const target = btn.getAttribute("data-target-sec");
       if (target === String(verticalSection)) {
         btn.classList.add("text-ink", "font-semibold");
