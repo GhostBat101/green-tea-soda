@@ -1,0 +1,732 @@
+<!-- index.html: Core web entry markup for Green Tea Soda Launch. Interfaces with Tailwind CDN and src/controllers/AppController.js -->
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Green Tea Soda — Batch 001</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          mist: "#fbfdf9",
+          "mist-soft": "#f4f8f1",
+          celadon: "#edf4ea",
+          "celadon-dim": "#e2ecdd",
+          lichen: "#dbe6d6",
+          "lichen-border": "#d2ded0",
+          ink: "#122116",
+          "ink-muted": "#405445",
+          "ink-subtle": "#697e6e",
+          accent: "#29402e",
+          forest: "#122116",
+          "forest-muted": "#405445",
+          "forest-subtle": "#5b6f5f",
+          "surface-container-low": "#f4f8f2",
+          "surface-container": "#edf4ea",
+          "secondary-container": "#dce8d8",
+          "on-secondary-container": "#1c3620"
+        },
+        letterSpacing: {
+          'ultra-wide': '0.22em',
+          'widest-caps': '0.28em'
+        },
+        fontFamily: {
+          sans: ['Public Sans', 'Inter', 'system-ui', 'sans-serif'],
+          mono: ['JetBrains Mono', 'monospace']
+        }
+      }
+    }
+  }
+</script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@200;300;400;500;600&amp;family=JetBrains+Mono:wght@300;400;500&amp;display=swap" rel="stylesheet"/>
+<style data-purpose="scroll-and-typography">
+  *, *::before, *::after {
+    font-style: normal !important;
+  }
+
+  body {
+    background-color: #fbfdf9;
+    color: #122116;
+    font-family: 'Public Sans', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background-color: #edf4ea;
+    color: #122116;
+  }
+
+  @media (min-width: 768px) {
+    body {
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+      user-select: none;
+    }
+
+    #master-viewport {
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+      position: relative;
+    }
+
+    #master-track {
+      transition: transform 0.95s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform;
+      height: 100%;
+      width: 100%;
+    }
+
+    .v-section {
+      height: 100vh;
+      width: 100vw;
+      overflow-y: auto;
+      overflow-x: hidden;
+      position: relative;
+      flex-shrink: 0;
+      scrollbar-width: none;
+    }
+    .v-section::-webkit-scrollbar {
+      display: none;
+    }
+
+    #horizontal-section {
+      overflow: hidden;
+      position: relative;
+    }
+
+    #h-track {
+      display: flex;
+      height: 100%;
+      width: 400vw;
+      transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform;
+    }
+
+    .h-panel {
+      width: 100vw;
+      height: 100vh;
+      flex-shrink: 0;
+      overflow-y: auto;
+      scrollbar-width: none;
+    }
+    .h-panel::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  @media (max-width: 767px) {
+    body {
+      overflow-y: auto;
+      overflow-x: hidden;
+      height: auto;
+      width: 100%;
+    }
+
+    #master-viewport {
+      height: auto;
+      width: 100%;
+      overflow: visible;
+      position: static;
+    }
+
+    #master-track {
+      transform: none !important;
+      transition: none !important;
+      display: block;
+      height: auto;
+      width: 100%;
+    }
+
+    .v-section {
+      height: auto !important;
+      min-height: 100vh;
+      width: 100% !important;
+      overflow: visible !important;
+      position: relative;
+      padding-top: 5rem !important;
+      padding-bottom: 5rem !important;
+    }
+
+    #horizontal-section {
+      height: auto !important;
+      overflow: visible !important;
+    }
+
+    #h-track {
+      display: flex;
+      overflow-x: auto;
+      width: 100%;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      transform: none !important;
+      transition: none !important;
+      scrollbar-width: none;
+    }
+    #h-track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .h-panel {
+      width: 100vw !important;
+      min-height: calc(100vh - 4rem);
+      height: auto !important;
+      flex-shrink: 0;
+      scroll-snap-align: start;
+      overflow: visible !important;
+      padding-top: 2rem !important;
+      padding-bottom: 4rem !important;
+    }
+  }
+
+  .bg-zen-grid {
+    background-image: 
+      linear-gradient(to right, rgba(18, 33, 22, 0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(18, 33, 22, 0.03) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+
+  .plinth-shadow {
+    box-shadow: 
+      0 20px 40px -15px rgba(18, 33, 22, 0.08),
+      0 0 0 1px rgba(219, 230, 214, 0.6);
+  }
+
+  @keyframes wavePulse {
+    0%, 100% { height: 6px; }
+    50% { height: 22px; }
+  }
+  .animate-wave-1 { animation: wavePulse 1.2s ease-in-out infinite 0.1s; }
+  .animate-wave-2 { animation: wavePulse 0.9s ease-in-out infinite 0.3s; }
+  .animate-wave-3 { animation: wavePulse 1.4s ease-in-out infinite 0.2s; }
+  .animate-wave-4 { animation: wavePulse 1.1s ease-in-out infinite 0.4s; }
+</style>
+</head>
+<body class="selection:bg-celadon selection:text-ink antialiased">
+<canvas class="fixed inset-0 pointer-events-none z-0" id="bubble-canvas"></canvas>
+<div class="fixed top-0 left-0 h-[2px] bg-ink z-50 transition-all duration-300 ease-out" id="telemetry-progress-bar" style="width: 0.5%;"></div>
+<div class="hidden md:block fixed inset-6 lg:inset-10 border border-lichen/40 pointer-events-none z-30"></div>
+
+<header class="fixed top-0 left-0 right-0 z-40 px-6 sm:px-10 lg:px-12 py-5 flex items-center justify-between backdrop-blur-md bg-mist/90 border-b border-lichen/40 transition-all">
+  <div class="flex items-center space-x-3 sm:space-x-4">
+    <span class="w-1.5 h-1.5 rounded-full bg-ink animate-pulse"></span>
+    <span class="font-mono text-xs uppercase tracking-widest-caps font-medium text-ink">GREEN TEA SODA</span>
+    <span class="hidden lg:inline-block font-mono text-[10px] text-ink-subtle uppercase tracking-ultra-wide pl-4 border-l border-lichen">Batch 001 — Sealed this month</span>
+  </div>
+  <nav class="hidden md:flex items-center space-x-6 lg:space-x-8 font-mono text-xs text-ink-subtle">
+    <button class="nav-jump hover:text-ink transition-colors uppercase tracking-wider text-ink font-semibold" data-target-sec="0">The Drink</button>
+    <button class="nav-jump hover:text-ink transition-colors uppercase tracking-wider" data-target-sec="1">What's Inside</button>
+    <button class="nav-jump hover:text-ink transition-colors uppercase tracking-wider" data-target-sec="2">How It's Made</button>
+    <button class="nav-jump hover:text-ink transition-colors uppercase tracking-wider" data-target-sec="3">Why It Matters</button>
+    <button class="nav-jump hover:text-ink transition-colors uppercase tracking-wider" data-target-sec="4">The Proof</button>
+    <button class="nav-jump hover:text-ink transition-colors uppercase tracking-wider" data-target-sec="5">Order</button>
+  </nav>
+  <div class="flex items-center space-x-3 sm:space-x-4">
+    <button class="flex items-center space-x-2 font-mono text-xs text-ink-muted hover:text-ink transition-colors px-3 py-1.5 border border-lichen rounded-full bg-mist-soft hover:bg-celadon" id="sound-synthesizer-btn" title="Toggle Procedural Audio Engine">
+      <span class="w-1.5 h-1.5 rounded-full bg-ink-muted transition-colors"></span>
+      <span class="hidden sm:inline uppercase tracking-ultra-wide text-[10px]">SOUND OFF</span>
+    </button>
+    <button class="flex items-center space-x-2 bg-ink text-mist font-mono text-xs uppercase tracking-ultra-wide px-4 py-2 hover:bg-accent transition-colors" id="cart-drawer-trigger">
+      <span>CART</span>
+      <span class="font-semibold text-celadon" id="cart-count">(2)</span>
+    </button>
+  </div>
+</header>
+
+<div id="master-viewport">
+  <div id="master-track" style="transform: translateY(0%);">
+
+    <section class="v-section flex flex-col justify-center px-6 sm:px-10 md:px-12 lg:px-20 xl:px-24 pt-24 pb-14 sm:pb-16 bg-zen-grid relative w-full" data-sec-index="0">
+      <div class="max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 md:gap-12 lg:gap-16 xl:gap-20 items-center my-auto">
+        <div class="md:col-span-1 lg:col-span-6 space-y-6 sm:space-y-8 lg:space-y-10">
+          <div class="space-y-4 sm:space-y-6">
+            <h1 class="text-3xl sm:text-5xl md:text-5xl lg:text-[4rem] xl:text-[4.25rem] font-light tracking-tight leading-[1.08] text-ink">
+              SIT DOWN. SAY NOTHING.<br/>
+              <span class="font-normal text-ink">JUST DRINK THIS.</span>
+            </h1>
+            <p class="text-sm sm:text-base md:text-base lg:text-lg text-ink-muted max-w-xl leading-relaxed font-normal">
+              Cold-brewed shade tea, real mint, and small, quiet bubbles. Made so you can take five minutes back without needing caffeine to hand them over again later.
+            </p>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 py-5 sm:py-6 border-y border-lichen font-mono text-xs">
+            <div class="space-y-1.5">
+              <p class="font-medium text-ink text-xs leading-relaxed">220mg L-theanine, the calming compound already found naturally in tea leaves</p>
+            </div>
+            <div class="space-y-1.5">
+              <p class="font-medium text-ink text-xs leading-relaxed">0g sugar added</p>
+            </div>
+            <div class="space-y-1.5">
+              <p class="font-medium text-ink text-xs leading-relaxed">Soft, slow bubbles — not the kind that bite</p>
+            </div>
+            <div class="space-y-1.5">
+              <p class="font-medium text-ink text-xs leading-relaxed">Grown in the shade, in Uji, Japan</p>
+            </div>
+          </div>
+          <div class="flex flex-wrap items-center gap-3.5 sm:gap-5 pt-1">
+            <button class="nav-jump inline-flex items-center justify-center px-6 sm:px-8 py-3.5 bg-ink text-mist font-mono text-xs uppercase tracking-ultra-wide hover:bg-accent transition-all shadow-sm w-full sm:w-auto" data-target-sec="5">
+              Get your first batch
+            </button>
+            <button class="nav-jump inline-flex items-center justify-center px-6 sm:px-7 py-3.5 border border-lichen-border text-ink font-mono text-xs uppercase tracking-ultra-wide hover:border-ink hover:bg-celadon/40 transition-all w-full sm:w-auto" data-target-sec="1">
+              See what's inside
+            </button>
+          </div>
+        </div>
+        <div class="md:col-span-1 lg:col-span-6 relative flex justify-center items-center py-4 lg:py-6 w-full">
+          <div class="relative z-10 w-full max-w-sm sm:max-w-md bg-celadon/40 border border-lichen rounded-3xl p-6 sm:p-8 md:p-10 plinth-shadow transition-transform duration-300 ease-out backdrop-blur-sm cursor-grab active:cursor-grabbing" id="hero-tilt-card">
+            <div class="relative py-2 sm:py-4 flex justify-center items-center overflow-visible">
+              <img alt="Green Tea Soda Specimen Can" class="w-56 sm:w-72 md:w-64 lg:w-80 h-auto object-contain drop-shadow-2xl transition-transform duration-700 pointer-events-none select-none max-h-[50vh] sm:max-h-[55vh]" id="specimen-img" src="./images/specimen_can.jpg"/>
+            </div>
+          </div>
+          <div class="hidden md:block absolute -bottom-6 -left-6 lg:-bottom-8 lg:-left-8 z-20 w-40 lg:w-48 rounded-2xl overflow-hidden border border-lichen shadow-2xl bg-mist transition-transform duration-500 hover:scale-105 pointer-events-auto">
+            <img alt="Green Tea Pour" class="w-full h-32 lg:h-40 object-cover" src="./images/green_tea_pour.jpg"/>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="v-section flex flex-col justify-center px-6 sm:px-10 md:px-12 lg:px-20 xl:px-24 py-16 sm:py-20 lg:py-24 bg-mist border-b border-lichen/60 relative w-full" data-sec-index="1">
+      <div class="max-w-7xl mx-auto w-full space-y-12 sm:space-y-16 my-auto">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-10 items-end">
+          <div class="md:col-span-7 space-y-4">
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-light tracking-tight text-ink">
+              Three things.<br/>
+              <span class="font-normal text-ink">Nothing else.</span>
+            </h2>
+          </div>
+          <div class="md:col-span-5">
+            <p class="text-sm sm:text-base text-ink-muted leading-relaxed font-normal">
+              Most sparkling teas are built from tea powder, sugar substitutes, and lab-made sourness. We used real leaves and real water instead, and left it at that.
+            </p>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 pt-2">
+          <div class="bg-celadon/40 p-7 sm:p-9 rounded-2xl border border-lichen hover:border-ink/40 transition-all duration-300 space-y-5 sm:space-y-6">
+            <div>
+              <h3 class="text-xl sm:text-2xl font-light text-ink mb-1">Shade-Grown Tea</h3>
+              <p class="text-[11px] font-mono text-ink-subtle uppercase tracking-wider">Kyoto, Japan</p>
+            </div>
+            <p class="text-sm text-ink-muted leading-relaxed">
+              Covered from direct sun for three weeks before it's picked, the way it's been done there for centuries.
+            </p>
+            <div class="pt-4 sm:pt-5 border-t border-lichen font-mono text-[11px] text-ink-subtle">
+              <div>· Keeps your head clear without the jitters that come from most caffeine</div>
+            </div>
+          </div>
+          <div class="bg-celadon/40 p-7 sm:p-9 rounded-2xl border border-lichen hover:border-ink/40 transition-all duration-300 space-y-5 sm:space-y-6">
+            <div>
+              <h3 class="text-xl sm:text-2xl font-light text-ink mb-1">Real Mint</h3>
+              <p class="text-[11px] font-mono text-ink-subtle uppercase tracking-wider">The hills of the Pacific Northwest</p>
+            </div>
+            <p class="text-sm text-ink-muted leading-relaxed">
+              Picked fresh and steeped immediately. It tastes like actual herbs, not candy or toothpaste flavoring.
+            </p>
+            <div class="pt-4 sm:pt-5 border-t border-lichen font-mono text-[11px] text-ink-subtle">
+              <div>· Gentle and crisp on the finish, never sharp</div>
+            </div>
+          </div>
+          <div class="bg-celadon/40 p-7 sm:p-9 rounded-2xl border border-lichen hover:border-ink/40 transition-all duration-300 space-y-5 sm:space-y-6">
+            <div>
+              <h3 class="text-xl sm:text-2xl font-light text-ink mb-1">Spring Water</h3>
+              <p class="text-[11px] font-mono text-ink-subtle uppercase tracking-wider">Granite bedrock filtration</p>
+            </div>
+            <p class="text-sm text-ink-muted leading-relaxed">
+              Naturally filtered through granite. Mineral enough to give the tea backbone; clean enough not to get in the way.
+            </p>
+            <div class="pt-4 sm:pt-5 border-t border-lichen font-mono text-[11px] text-ink-subtle">
+              <div>· Zero added sodium, zero chemical buffers</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="v-section p-0 bg-mist border-b border-lichen/60 relative w-full" data-sec-index="2" id="horizontal-section">
+      <div class="sticky top-0 z-20 px-6 sm:px-10 md:px-12 lg:px-20 xl:px-24 pt-8 md:pt-10 pb-4 bg-mist/95 backdrop-blur-sm border-b border-lichen flex items-center justify-between w-full">
+        <div>
+          <span class="font-mono text-xs uppercase tracking-widest-caps text-ink font-semibold" id="h-step-indicator">STEP 01 / 04</span>
+          <h2 class="text-lg sm:text-xl font-light text-ink">How It's Made</h2>
+        </div>
+        <div class="flex items-center space-x-3">
+          <button class="w-10 h-10 border border-lichen-border rounded-full flex items-center justify-center hover:border-ink hover:bg-celadon/40 transition-colors opacity-30 pointer-events-none" id="h-prev-btn" title="Previous Step">
+            <svg class="w-4 h-4 text-ink" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+          </button>
+          <button class="w-10 h-10 border border-lichen-border rounded-full flex items-center justify-center hover:border-ink hover:bg-celadon/40 transition-colors" id="h-next-btn" title="Next Step">
+            <svg class="w-4 h-4 text-ink" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+          </button>
+        </div>
+      </div>
+      <div id="h-track">
+        <div class="h-panel flex flex-col justify-center px-6 sm:px-10 md:px-12 lg:px-20 xl:px-24 pt-8 sm:pt-12 md:pt-28 pb-12 sm:pb-14 bg-mist">
+          <div class="max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 md:gap-10 lg:gap-16 items-center">
+            <div class="md:col-span-1 lg:col-span-6 space-y-4 sm:space-y-6">
+              <h3 class="text-2xl sm:text-4xl md:text-3xl lg:text-5xl font-light tracking-tight text-ink">
+                The 21 Days Before We Pick Anything
+              </h3>
+              <p class="text-sm sm:text-base text-ink-muted leading-relaxed font-normal">
+                Three weeks before harvest, black woven cloths are rolled out over the tea rows, cutting sunlight by more than 80 percent. The leaves fight for light by pumping themselves full of chlorophyll and L-theanine — the amino acid that gives shade tea its rich, savory calm.
+              </p>
+            </div>
+            <div class="md:col-span-1 lg:col-span-6">
+              <div class="rounded-3xl overflow-hidden border border-lichen shadow-xl bg-mist group relative">
+                <img alt="Deconstructed Botanical Green Tea" class="w-full h-64 sm:h-80 md:h-[340px] lg:h-[420px] object-cover transition-transform duration-700 group-hover:scale-105" src="./images/deconstructed_botanical.jpg"/>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="h-panel flex flex-col justify-center px-6 sm:px-10 md:px-12 lg:px-20 xl:px-24 pt-8 sm:pt-12 md:pt-28 pb-12 sm:pb-14 bg-mist-soft">
+          <div class="max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 md:gap-10 lg:gap-16 items-center">
+            <div class="md:col-span-1 lg:col-span-6 space-y-4 sm:space-y-6">
+              <h3 class="text-2xl sm:text-4xl md:text-3xl lg:text-5xl font-light tracking-tight text-ink">
+                Bubbles Done Differently
+              </h3>
+              <p class="text-sm sm:text-base text-ink-muted leading-relaxed font-normal">
+                Most sparkling drinks are hit with high-pressure carbonation right before canning — the kind of fizz that stings your tongue and masks the actual flavor of the liquid. We carbonate slowly, at lower pressure and colder temperatures, so the bubbles stay tiny.
+              </p>
+            </div>
+            <div class="md:col-span-1 lg:col-span-6">
+              <div class="rounded-3xl overflow-hidden border border-lichen shadow-xl bg-mist group relative">
+                <img alt="Bubbles Pour Micro-Fizz" class="w-full h-64 sm:h-80 md:h-[340px] lg:h-[420px] object-cover transition-transform duration-700 group-hover:scale-105" src="./images/bubbles_pour_microfizz.jpg"/>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="h-panel flex flex-col justify-center px-6 sm:px-10 md:px-12 lg:px-20 xl:px-24 pt-8 sm:pt-12 md:pt-28 pb-12 sm:pb-14 bg-mist">
+          <div class="max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 md:gap-10 lg:gap-16 items-center">
+            <div class="md:col-span-1 lg:col-span-6 space-y-4 sm:space-y-6">
+              <h3 class="text-2xl sm:text-4xl md:text-3xl lg:text-5xl font-light tracking-tight text-ink">
+                The 2pm Problem
+              </h3>
+              <p class="text-sm sm:text-base text-ink-muted leading-relaxed font-normal">
+                You know the feeling: two in the afternoon, focus is gone, and the reflex is to grab another coffee. It works for thirty minutes, and then you're more tired than when you started. A single can of Green Tea Soda carries 220mg of natural L-theanine.
+              </p>
+            </div>
+            <div class="md:col-span-1 lg:col-span-6">
+              <div class="rounded-3xl overflow-hidden border border-lichen shadow-xl bg-mist group relative">
+                <img alt="Chapter Three 2pm Reset" class="w-full h-64 sm:h-80 md:h-[340px] lg:h-[420px] object-cover transition-transform duration-700 group-hover:scale-105" src="./images/chapter_three_2pm_reset.jpg"/>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="h-panel flex flex-col justify-center px-6 sm:px-10 md:px-12 lg:px-20 xl:px-24 pt-8 sm:pt-12 md:pt-28 pb-12 sm:pb-14 bg-mist-soft">
+          <div class="max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 md:gap-10 lg:gap-16 items-center">
+            <div class="md:col-span-1 lg:col-span-6 space-y-4 sm:space-y-6">
+              <h3 class="text-2xl sm:text-4xl md:text-3xl lg:text-5xl font-light tracking-tight text-ink">
+                Where the Can Goes After You're Done With It
+              </h3>
+              <p class="text-sm sm:text-base text-ink-muted leading-relaxed font-normal">
+                This part we can actually prove, not just claim. The can is aluminum, start to finish — no plastic lining hidden inside it — so it can be melted down and remade again and again without losing quality. Most cans like ours are back on a shelf in some new form within two months of being recycled.
+              </p>
+            </div>
+            <div class="md:col-span-1 lg:col-span-6 bg-mist p-6 sm:p-10 rounded-3xl border border-lichen space-y-4 sm:space-y-6">
+              <div class="space-y-3 sm:space-y-4 font-mono text-xs text-ink-muted">
+                <div class="flex justify-between py-2 border-b border-lichen/50">
+                  <span>Material</span>
+                  <span class="text-ink font-medium">Pure Aluminum</span>
+                </div>
+                <div class="flex justify-between py-2 border-b border-lichen/50">
+                  <span>Lining</span>
+                  <span class="text-ink font-medium">Zero hidden plastic</span>
+                </div>
+                <div class="flex justify-between py-2 border-b border-lichen/50">
+                  <span>Shipping Box</span>
+                  <span class="text-ink font-medium">Recyclable Kraft Cardboard</span>
+                </div>
+                <div class="flex justify-between py-2">
+                  <span>Adhesive</span>
+                  <span class="text-ink font-medium">Starch-Based Glue</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="v-section flex flex-col justify-center px-6 sm:px-10 md:px-12 lg:px-20 xl:px-24 py-16 sm:py-20 lg:py-24 bg-mist border-b border-lichen/60 relative w-full" data-sec-index="3">
+      <div class="max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 md:gap-12 lg:gap-16 items-center my-auto">
+        <div class="md:col-span-1 lg:col-span-6 space-y-6 sm:space-y-8">
+          <div class="space-y-4">
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-light tracking-tight text-ink">
+              The sound of slowing down
+            </h2>
+            <p class="text-sm sm:text-base text-ink-muted leading-relaxed font-normal">
+              Nothing forces a pause quite like the sound of a cold can opening. That crack, that quiet fizz settling — most people don't notice how much they've missed it until they hear it again.
+            </p>
+          </div>
+          <div class="bg-celadon/50 p-6 sm:p-8 rounded-3xl border border-lichen space-y-5 sm:space-y-6">
+            <div class="flex justify-between items-center font-mono text-xs text-ink">
+              <span class="font-medium">Turn the sound on</span>
+              <span class="text-ink-subtle text-[10px]" id="resonance-status">STATUS: STANDBY</span>
+            </div>
+            <div class="h-20 bg-mist border border-lichen-border rounded-2xl flex items-center justify-center gap-2 px-6 sm:px-8" id="waveform-container">
+              <div class="waveform-bar w-1 bg-ink rounded-full transition-all duration-150 h-4"></div>
+              <div class="waveform-bar w-1 bg-ink rounded-full transition-all duration-150 h-8"></div>
+              <div class="waveform-bar w-1 bg-ink rounded-full transition-all duration-150 h-16"></div>
+              <div class="waveform-bar w-1 bg-ink rounded-full transition-all duration-150 h-6"></div>
+              <div class="waveform-bar w-1 bg-ink rounded-full transition-all duration-150 h-14"></div>
+              <div class="waveform-bar w-1 bg-ink rounded-full transition-all duration-150 h-20"></div>
+              <div class="waveform-bar w-1 bg-ink rounded-full transition-all duration-150 h-10"></div>
+              <div class="waveform-bar w-1 bg-ink rounded-full transition-all duration-150 h-4"></div>
+            </div>
+            <div class="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 pt-1">
+              <button class="px-5 sm:px-6 py-3.5 bg-ink text-mist font-mono text-xs uppercase tracking-wider hover:bg-accent transition-colors w-full sm:w-auto text-center" id="trigger-sample-btn" type="button">
+                Hear the can open
+              </button>
+              <button class="px-5 sm:px-6 py-3.5 border border-lichen-border text-ink font-mono text-xs uppercase tracking-wider hover:border-ink hover:bg-celadon/40 transition-colors w-full sm:w-auto text-center" id="toggle-ambient-hiss-btn" type="button">
+                Toggle Ambient Fizz
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="md:col-span-1 lg:col-span-6">
+          <div class="bg-celadon/30 p-6 sm:p-8 md:p-10 rounded-3xl border border-lichen space-y-5 sm:space-y-6">
+            <h3 class="font-mono text-xs uppercase tracking-widest-caps text-ink font-semibold">THE SENSORY PAUSE</h3>
+            <div class="space-y-3.5 sm:space-y-4 font-mono text-xs text-ink-muted">
+              <div class="p-4 sm:p-5 bg-mist rounded-2xl border border-lichen/80">
+                <div class="text-ink font-medium mb-1">THE CAN CRACK</div>
+                <div>An unmistakable acoustic cue that cuts through screen fatigue.</div>
+              </div>
+              <div class="p-4 sm:p-5 bg-mist rounded-2xl border border-lichen/80">
+                <div class="text-ink font-medium mb-1">THE QUIET FIZZ</div>
+                <div>Soft, slow carbonation bubbles settling into calm.</div>
+              </div>
+              <div class="p-4 sm:p-5 bg-mist rounded-2xl border border-lichen/80">
+                <div class="text-ink font-medium mb-1">THE FIRST SIP</div>
+                <div>Herbaceous wild mint and shade tencha clarity.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="v-section flex flex-col justify-center px-6 sm:px-10 md:px-12 lg:px-20 xl:px-24 py-16 sm:py-20 lg:py-24 bg-mist-soft border-b border-lichen/60 relative w-full" data-sec-index="4">
+      <div class="max-w-7xl mx-auto w-full space-y-12 sm:space-y-16 my-auto">
+        <div class="max-w-3xl space-y-4">
+          <h2 class="text-3xl sm:text-4xl md:text-5xl font-light tracking-tight text-ink">
+            Here's what we can actually prove
+          </h2>
+          <p class="text-sm sm:text-base text-ink-muted leading-relaxed font-normal">
+            We'd rather hand you numbers than tell you a story.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+          <div class="bg-mist p-7 sm:p-10 rounded-3xl border border-lichen space-y-3 sm:space-y-4">
+            <div class="text-3xl sm:text-4xl lg:text-5xl font-light text-ink">38,420 kg</div>
+            <p class="text-xs text-ink-muted leading-relaxed">of CO₂ already offset — audited by an outside group, not us</p>
+          </div>
+          <div class="bg-mist p-7 sm:p-10 rounded-3xl border border-lichen space-y-3 sm:space-y-4">
+            <div class="text-3xl sm:text-4xl lg:text-5xl font-light text-ink">60 days</div>
+            <p class="text-xs text-ink-muted leading-relaxed">how long it takes a used can to come back as a new one, on average</p>
+          </div>
+          <div class="bg-mist p-7 sm:p-10 rounded-3xl border border-lichen space-y-3 sm:space-y-4">
+            <div class="text-3xl sm:text-4xl lg:text-5xl font-light text-ink">100%</div>
+            <p class="text-xs text-ink-muted leading-relaxed">of our tea comes from one family farm we've visited ourselves, twice a year</p>
+          </div>
+        </div>
+        <div class="border border-lichen rounded-2xl p-6 sm:p-8 bg-mist font-mono text-xs text-ink-muted leading-relaxed">
+          <p class="text-ink font-medium mb-1 uppercase tracking-wider">LAB NOTE</p>
+          <p>No sugar. No stevia. No monk fruit quietly doing sugar's job. Every batch gets tested by an outside lab, not just our own team, so what's printed on the can is what's actually inside it.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="v-section flex flex-col justify-center px-6 sm:px-10 md:px-12 lg:px-20 xl:px-24 py-16 sm:py-20 lg:py-24 bg-mist border-b border-lichen/60 relative w-full" data-sec-index="5">
+      <div class="max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-12 lg:gap-16 items-start my-auto">
+        <div class="md:col-span-5 space-y-6 sm:space-y-8">
+          <div class="space-y-4">
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-light tracking-tight text-ink">
+              Order your first batch
+            </h2>
+            <p class="text-sm sm:text-base text-ink-muted leading-relaxed font-normal">
+              Each batch is small on purpose. It's canned in Kyoto, sealed cold, and shipped within two days of that seal going on.
+            </p>
+          </div>
+          <div class="font-mono text-xs text-ink-subtle space-y-2 pt-4 sm:pt-6 border-t border-lichen">
+            <div>· Cold-shield recyclable packaging</div>
+            <div>· Shipped within two days of sealing</div>
+            <div>· Direct farm collaboration</div>
+          </div>
+        </div>
+        <div class="md:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
+          <div class="bg-celadon/40 rounded-3xl p-6 sm:p-8 border border-lichen hover:border-ink/40 transition-all flex flex-col justify-between space-y-6 sm:space-y-8">
+            <div class="space-y-4">
+              <div class="flex justify-between items-start">
+                <span class="font-mono text-2xl font-light text-ink">$38</span>
+              </div>
+              <h3 class="text-xl sm:text-2xl font-normal text-ink">12 Cans</h3>
+              <p class="text-xs text-ink-muted leading-relaxed font-normal">
+                Enough to find out if this becomes part of your week.
+              </p>
+              <div class="font-mono text-[11px] text-ink-subtle space-y-1.5 pt-2">
+                <div>· 12 cans, 330ml each</div>
+                <div>· 220mg L-theanine per can</div>
+                <div>· Ships within 48 hours</div>
+              </div>
+            </div>
+            <div class="space-y-4 pt-4 border-t border-lichen/80">
+              <div class="flex items-center justify-between font-mono text-xs">
+                <span class="text-ink-subtle text-[10px]">QUANTITY:</span>
+                <div class="flex items-center border border-lichen-border rounded bg-mist">
+                  <button class="px-2.5 py-1 hover:bg-celadon" id="qty-12-minus">-</button>
+                  <input class="w-10 text-center font-semibold text-ink bg-transparent border-none p-0 focus:ring-0 text-xs" id="qty-12" readonly type="text" value="1"/>
+                  <button class="px-2.5 py-1 hover:bg-celadon" id="qty-12-plus">+</button>
+                </div>
+              </div>
+              <button class="w-full py-3.5 sm:py-4 bg-ink text-mist font-mono text-xs uppercase tracking-ultra-wide hover:bg-accent transition-colors rounded-none" id="add-12-btn" type="button">
+                Get 12 cans
+              </button>
+            </div>
+          </div>
+          <div class="bg-celadon/70 rounded-3xl p-6 sm:p-8 border-2 border-ink/30 hover:border-ink transition-all flex flex-col justify-between space-y-6 sm:space-y-8 relative overflow-hidden">
+            <div class="space-y-4">
+              <div class="flex justify-between items-start">
+                <span class="font-mono text-2xl font-light text-ink">$68</span>
+              </div>
+              <div class="font-mono text-[10px] text-ink uppercase tracking-wider">shipping's on us</div>
+              <h3 class="text-xl sm:text-2xl font-normal text-ink">24 Cans</h3>
+              <p class="text-xs text-ink-muted leading-relaxed font-normal">
+                Most people start here. The better deal, if you already know you'll want more than one case.
+              </p>
+              <div class="font-mono text-[11px] text-ink-subtle space-y-1.5 pt-2">
+                <div>· 24 cans, 330ml each</div>
+                <div>· First access to next season's batch</div>
+                <div>· Free shipping</div>
+                <div>· A short note from us on what made this harvest different</div>
+              </div>
+            </div>
+            <div class="space-y-4 pt-4 border-t border-lichen/80">
+              <div class="flex items-center justify-between font-mono text-xs">
+                <span class="text-ink-subtle text-[10px]">QUANTITY:</span>
+                <div class="flex items-center border border-lichen-border rounded bg-mist">
+                  <button class="px-2.5 py-1 hover:bg-celadon" id="qty-24-minus">-</button>
+                  <input class="w-10 text-center font-semibold text-ink bg-transparent border-none p-0 focus:ring-0 text-xs" id="qty-24" readonly type="text" value="1"/>
+                  <button class="px-2.5 py-1 hover:bg-celadon" id="qty-24-plus">+</button>
+                </div>
+              </div>
+              <button class="w-full py-3.5 sm:py-4 bg-ink text-mist font-mono text-xs uppercase tracking-ultra-wide hover:bg-accent transition-colors rounded-none" id="add-24-btn" type="button">
+                Get 24 cans
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="v-section flex flex-col justify-between px-6 sm:px-10 md:px-12 lg:px-20 xl:px-24 py-16 sm:py-20 lg:py-24 bg-ink text-mist w-full" data-sec-index="6">
+      <div class="max-w-7xl mx-auto w-full space-y-12 sm:space-y-16 my-auto">
+        <div class="max-w-3xl border-l border-celadon/30 pl-6 sm:pl-8 py-2 space-y-4">
+          <blockquote class="text-lg sm:text-2xl md:text-3xl font-light text-mist leading-relaxed font-sans">
+            "This is the rare canned drink that feels like a decision, not a habit. A quiet break from your screen, not one more thing asking for your attention."
+          </blockquote>
+          <cite class="block font-mono text-xs text-celadon/70 uppercase tracking-wider">
+            — Foldout Journal of Design &amp; Form
+          </cite>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 sm:gap-10 pt-8 sm:pt-10 border-t border-mist/10 font-mono text-xs">
+          <div class="space-y-3">
+            <span class="text-celadon text-[10px] uppercase tracking-wider block font-medium">About</span>
+            <ul class="space-y-2 text-mist/70">
+              <li><button class="nav-jump hover:text-mist text-left" data-target-sec="0">The Tea</button></li>
+              <li><button class="nav-jump hover:text-mist text-left" data-target-sec="1">The Water</button></li>
+              <li><button class="nav-jump hover:text-mist text-left" data-target-sec="2">How It's Made</button></li>
+              <li><button class="nav-jump hover:text-mist text-left" data-target-sec="3">The Can</button></li>
+            </ul>
+          </div>
+          <div class="space-y-3">
+            <span class="text-celadon text-[10px] uppercase tracking-wider block font-medium">The Fine Print</span>
+            <ul class="space-y-2 text-mist/70">
+              <li>Our Farm Partner</li>
+              <li>Carbon Offset: 42.8t Verified</li>
+              <li>B-Corp Status: Pending</li>
+              <li>Lab Tested, Every Batch</li>
+            </ul>
+          </div>
+          <div class="space-y-3">
+            <span class="text-celadon text-[10px] uppercase tracking-wider block font-medium">Follow Along</span>
+            <ul class="space-y-2 text-mist/70">
+              <li><a class="hover:text-mist" href="#">Instagram</a></li>
+              <li><a class="hover:text-mist" href="#">Newsletter</a></li>
+              <li><a class="hover:text-mist" href="#">Wholesale Inquiries</a></li>
+              <li><a class="hover:text-mist" href="#">Behind the Batches</a></li>
+            </ul>
+          </div>
+          <div class="space-y-3 col-span-2 sm:col-span-1">
+            <span class="text-celadon text-[10px] uppercase tracking-wider block font-medium">A Note on Timing</span>
+            <p class="text-[11px] text-mist/60 leading-relaxed font-normal">
+              This is sealed and shipped one season at a time. Batch 001 is limited to what this harvest actually gave us — once it's gone, it's gone until the next one.
+            </p>
+          </div>
+        </div>
+        <div class="pt-8 border-t border-mist/10 flex flex-col sm:flex-row justify-between items-center gap-4 font-mono text-[10px] text-mist/40">
+          <div>© 2026 Green Tea Soda. Kyoto · Uji · Pacific NW.</div>
+          <div class="flex gap-6 uppercase tracking-wider">
+            <a class="hover:text-mist" href="#">Privacy</a>
+            <a class="hover:text-mist" href="#">Terms</a>
+            <a class="hover:text-mist" href="#">Shipping</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<aside class="fixed md:inset-y-0 bottom-0 md:bottom-auto right-0 z-50 w-full md:max-w-md max-h-[85vh] md:max-h-full h-auto md:h-full bg-[#fbfdf9] border-t md:border-t-0 md:border-l border-[#e2ebe0] rounded-t-3xl md:rounded-t-none shadow-2xl transform translate-y-full md:translate-y-0 md:translate-x-full transition-transform duration-300 ease-in-out flex flex-col justify-between" id="cart-drawer">
+  <div class="w-12 h-1 bg-lichen rounded-full mx-auto mt-3 md:hidden"></div>
+  <div class="p-5 sm:p-6 lg:p-8 border-b border-[#e2ebe0] flex justify-between items-center bg-[#fbfdf9]">
+    <div class="space-y-0.5">
+      <div class="flex items-center gap-2">
+        <span class="w-1.5 h-1.5 rounded-full bg-[#122116] animate-pulse"></span>
+        <h4 class="font-mono text-xs font-semibold uppercase tracking-widest-caps text-[#122116]">Your Batch</h4>
+      </div>
+      <span class="font-mono text-[10px] text-[#5b6f5f] tracking-wider uppercase">Allocation Reservation · Batch 001</span>
+    </div>
+    <button class="font-mono text-xs text-[#122116] hover:text-[#405445] p-2 rounded-full hover:bg-[#edf4ea] transition-colors" id="drawer-close-btn">[CLOSE ✕]</button>
+  </div>
+  <div class="p-5 sm:p-6 lg:p-8 space-y-4 sm:space-y-5 overflow-y-auto flex-1 font-mono text-xs">
+    <div class="p-3.5 bg-[#f4f8f2] border border-[#dbe6d7] rounded-xl flex items-start gap-3">
+      <span class="text-[#2d4432] text-xs mt-0.5">❄</span>
+      <div class="space-y-0.5">
+        <div class="text-[#2d4432] font-medium text-[11px]">Cold-Chain Dispatch</div>
+        <div class="text-[#5b6f5f] text-[10px] leading-relaxed">Batch 001 · Ships within 48 hours in insulated kraft packaging</div>
+      </div>
+    </div>
+    <div class="space-y-4" id="drawer-items-container"></div>
+  </div>
+  <div class="p-5 sm:p-6 lg:p-8 border-t border-[#e2ebe0] bg-[#fbfdf9] space-y-4 sm:space-y-5 font-mono text-xs">
+    <div class="space-y-2 border-b border-[#e2ebe0] pb-3 sm:pb-4">
+      <div class="flex justify-between text-[#4a5c4e] text-[11px]">
+        <span>Subtotal</span>
+        <span id="drawer-subtotal">$0.00</span>
+      </div>
+      <div class="flex justify-between text-[#4a5c4e] text-[11px]">
+        <span>Shipping</span>
+        <span class="text-[#122116] font-medium" id="drawer-shipping">Complimentary</span>
+      </div>
+      <div class="flex justify-between items-center text-base font-medium text-[#122116] pt-1 sm:pt-2">
+        <span>Total</span>
+        <span class="text-base sm:text-lg font-medium text-[#122116]" id="drawer-total">$0.00</span>
+      </div>
+    </div>
+    <button class="w-full py-3.5 sm:py-4 bg-[#122116] hover:bg-[#1b2e20] text-[#fbfdf9] uppercase tracking-ultra-wide font-mono text-xs transition-all shadow-md" id="proceed-checkout-btn" type="button">
+      Proceed to Checkout →
+    </button>
+    <div class="text-center text-[10px] text-[#5b6f5f] leading-relaxed flex items-center justify-center gap-2">
+      <span>100% recyclable packaging</span>
+      <span>·</span>
+      <span>Carbon-neutral delivery</span>
+    </div>
+  </div>
+</aside>
+<div class="fixed inset-0 bg-[#f7faf5]/70 backdrop-blur-md z-40 opacity-0 pointer-events-none transition-opacity duration-300" id="drawer-backdrop"></div>
+
+<script src="./src/controllers/AppController.js" type="module"></script>
+</body>
+</html>
