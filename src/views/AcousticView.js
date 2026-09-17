@@ -1,4 +1,4 @@
-// AcousticView.js: Procedural visualizer and acoustic sensory interface view. Interfaces with AudioModel and AudioController.
+// AcousticView.js: Visualizer and acoustic sensory interface view. Interfaces with AudioModel and AudioController.
 
 import { SELECTORS } from "../config/constants.js";
 
@@ -26,14 +26,28 @@ class AcousticView {
 
   bindPlaySample(callback) {
     if (this.sampleBtn) {
-      this.sampleBtn.addEventListener("click", callback);
+      this.sampleBtn.addEventListener("click", () => {
+        callback();
+        this.pulseOnce();
+      });
     }
+  }
+
+  pulseOnce() {
+    this.waveformBars.forEach((bar, idx) => {
+      bar.style.height = `${Math.min(48, 18 + idx * 4)}px`;
+    });
+    setTimeout(() => {
+      if (!this.animationTimer) {
+        this.stopWaveformAnimation();
+      }
+    }, 400);
   }
 
   render(snapshot) {
     const isPlaying = snapshot.isAmbientPlaying;
     if (this.statusBadge) {
-      this.statusBadge.textContent = isPlaying ? "LIVE RESONANCE: 1,800 HZ ACTIVE" : "CHAMBER MUTED · READY";
+      this.statusBadge.textContent = isPlaying ? "AUTHENTIC MICRO-FIZZ · ACTIVE" : "CHAMBER MUTED · READY";
       if (isPlaying) {
         this.statusBadge.classList.remove("text-ink-subtle");
         this.statusBadge.classList.add("text-emerald-700");
@@ -44,7 +58,7 @@ class AcousticView {
     }
 
     if (this.ambientBtn) {
-      this.ambientBtn.textContent = isPlaying ? "Pause Ambient Resonance" : "Listen to the Micro-Fizz";
+      this.ambientBtn.textContent = isPlaying ? "Pause Micro-Fizz" : "Listen to the Micro-Fizz";
     }
 
     if (this.headerSoundBtn) {
@@ -90,7 +104,7 @@ class AcousticView {
       clearInterval(this.animationTimer);
       this.animationTimer = null;
     }
-    this.waveformBars.forEach(bar => {
+    this.waveformBars.forEach((bar) => {
       bar.style.height = "16px";
     });
   }
