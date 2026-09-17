@@ -2,7 +2,7 @@
 
 import { SELECTORS } from "../config/constants.js";
 
-const PULSE_INTERVAL_MS = 120;
+const PULSE_INTERVAL_MS = 280;
 
 class AcousticView {
   constructor() {
@@ -12,6 +12,7 @@ class AcousticView {
     this.headerSoundBtn = document.querySelector(SELECTORS.soundSynthesizerBtn);
     this.sampleBtn = document.querySelector(SELECTORS.triggerSampleBtn);
     this.animationTimer = null;
+    this.wavePhase = 0;
   }
 
   bindToggleAmbient(callback) {
@@ -32,7 +33,7 @@ class AcousticView {
   render(snapshot) {
     const isPlaying = snapshot.isAmbientPlaying;
     if (this.statusBadge) {
-      this.statusBadge.textContent = isPlaying ? "LIVE RESONANCE: 3,200 HZ ACTIVE" : "CHAMBER MUTED · READY";
+      this.statusBadge.textContent = isPlaying ? "LIVE RESONANCE: 1,800 HZ ACTIVE" : "CHAMBER MUTED · READY";
       if (isPlaying) {
         this.statusBadge.classList.remove("text-ink-subtle");
         this.statusBadge.classList.add("text-emerald-700");
@@ -73,8 +74,12 @@ class AcousticView {
   startWaveformAnimation() {
     if (this.animationTimer) return;
     this.animationTimer = setInterval(() => {
-      this.waveformBars.forEach(bar => {
-        const height = Math.floor(Math.random() * 48) + 12;
+      this.wavePhase += 0.4;
+      const count = this.waveformBars.length || 1;
+      this.waveformBars.forEach((bar, idx) => {
+        const sineWave = Math.sin(this.wavePhase + (idx / count) * Math.PI * 2);
+        const jitter = (Math.random() * 8) - 4;
+        const height = Math.max(8, Math.min(52, Math.floor(26 + (sineWave * 18) + jitter)));
         bar.style.height = `${height}px`;
       });
     }, PULSE_INTERVAL_MS);
