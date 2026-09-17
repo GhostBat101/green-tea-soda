@@ -67,7 +67,6 @@
       overflow: hidden;
       height: 100vh;
       width: 100vw;
-      user-select: none;
     }
 
     #master-viewport {
@@ -78,7 +77,7 @@
     }
 
     #master-track {
-      transition: transform 0.95s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
       will-change: transform;
       height: 100%;
       width: 100%;
@@ -86,6 +85,7 @@
 
     .v-section {
       height: 100vh;
+      max-height: 100vh;
       width: 100vw;
       overflow-y: auto;
       overflow-x: hidden;
@@ -106,7 +106,7 @@
       display: flex;
       height: 100%;
       width: 400vw;
-      transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
       will-change: transform;
     }
 
@@ -119,6 +119,10 @@
     }
     .h-panel::-webkit-scrollbar {
       display: none;
+    }
+
+    .waveform-bar {
+      transition: height 0.28s cubic-bezier(0.2, 0.8, 0.4, 1);
     }
   }
 
@@ -291,7 +295,7 @@
       </div>
     </section>
 
-    <section class="v-section flex flex-col justify-center px-6 sm:px-10 md:px-12 lg:px-20 xl:px-24 py-16 sm:py-20 lg:py-24 bg-mist border-b border-lichen/60 relative w-full" data-sec-index="1">
+    <section class="v-section flex flex-col justify-center px-6 sm:px-10 md:px-12 lg:px-20 xl:px-24 pt-20 pb-8 sm:pt-24 sm:pb-12 bg-mist border-b border-lichen/60 relative w-full" data-sec-index="1">
       <div class="max-w-7xl mx-auto w-full space-y-12 sm:space-y-16 my-auto">
         <div class="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-10 items-end">
           <div class="md:col-span-7 space-y-4">
@@ -348,7 +352,7 @@
     </section>
 
     <section class="v-section p-0 bg-mist border-b border-lichen/60 relative w-full" data-sec-index="2" id="horizontal-section">
-      <div class="sticky top-0 z-20 px-6 sm:px-10 md:px-12 lg:px-20 xl:px-24 pt-8 md:pt-10 pb-4 bg-mist/95 backdrop-blur-sm border-b border-lichen flex items-center justify-between w-full">
+      <div class="sticky top-0 z-20 px-6 sm:px-10 md:px-12 lg:px-20 xl:px-24 pt-6 md:pt-20 pb-4 bg-mist/95 backdrop-blur-sm border-b border-lichen flex items-center justify-between w-full">
         <div>
           <span class="font-mono text-xs uppercase tracking-widest-caps text-ink font-semibold" id="h-step-indicator">STEP 01 / 04</span>
           <h2 class="text-lg sm:text-xl font-light text-ink">How It's Made</h2>
@@ -363,7 +367,7 @@
         </div>
       </div>
       <div id="h-track">
-        <div class="h-panel flex flex-col justify-center px-6 sm:px-10 md:px-12 lg:px-20 xl:px-24 pt-8 sm:pt-12 md:pt-28 pb-12 sm:pb-14 bg-mist">
+        <div class="h-panel flex flex-col justify-center px-6 sm:px-10 md:px-12 lg:px-20 xl:px-24 pt-8 sm:pt-12 md:pt-36 pb-12 sm:pb-14 bg-mist">
           <div class="max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 md:gap-10 lg:gap-16 items-center">
             <div class="md:col-span-1 lg:col-span-6 space-y-4 sm:space-y-6">
               <h3 class="text-2xl sm:text-4xl md:text-3xl lg:text-5xl font-light tracking-tight text-ink">
@@ -380,7 +384,7 @@
             </div>
           </div>
         </div>
-        <div class="h-panel flex flex-col justify-center px-6 sm:px-10 md:px-12 lg:px-20 xl:px-24 pt-8 sm:pt-12 md:pt-28 pb-12 sm:pb-14 bg-mist-soft">
+        <div class="h-panel flex flex-col justify-center px-6 sm:px-10 md:px-12 lg:px-20 xl:px-24 pt-8 sm:pt-12 md:pt-36 pb-12 sm:pb-14 bg-mist-soft">
           <div class="max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 md:gap-10 lg:gap-16 items-center">
             <div class="md:col-span-1 lg:col-span-6 space-y-4 sm:space-y-6">
               <h3 class="text-2xl sm:text-4xl md:text-3xl lg:text-5xl font-light tracking-tight text-ink">
@@ -397,7 +401,7 @@
             </div>
           </div>
         </div>
-        <div class="h-panel flex flex-col justify-center px-6 sm:px-10 md:px-12 lg:px-20 xl:px-24 pt-8 sm:pt-12 md:pt-28 pb-12 sm:pb-14 bg-mist">
+        <div class="h-panel flex flex-col justify-center px-6 sm:px-10 md:px-12 lg:px-20 xl:px-24 pt-8 sm:pt-12 md:pt-36 pb-12 sm:pb-14 bg-mist">
           <div class="max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 md:gap-10 lg:gap-16 items-center">
             <div class="md:col-span-1 lg:col-span-6 space-y-4 sm:space-y-6">
               <h3 class="text-2xl sm:text-4xl md:text-3xl lg:text-5xl font-light tracking-tight text-ink">
@@ -414,7 +418,7 @@
             </div>
           </div>
         </div>
-        <div class="h-panel flex flex-col justify-center px-6 sm:px-10 md:px-12 lg:px-20 xl:px-24 pt-8 sm:pt-12 md:pt-28 pb-12 sm:pb-14 bg-mist-soft">
+        <div class="h-panel flex flex-col justify-center px-6 sm:px-10 md:px-12 lg:px-20 xl:px-24 pt-8 sm:pt-12 md:pt-36 pb-12 sm:pb-14 bg-mist-soft">
           <div class="max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 md:gap-10 lg:gap-16 items-center">
             <div class="md:col-span-1 lg:col-span-6 space-y-4 sm:space-y-6">
               <h3 class="text-2xl sm:text-4xl md:text-3xl lg:text-5xl font-light tracking-tight text-ink">
@@ -449,7 +453,7 @@
       </div>
     </section>
 
-    <section class="v-section flex flex-col justify-center px-6 sm:px-10 md:px-12 lg:px-20 xl:px-24 py-16 sm:py-20 lg:py-24 bg-mist border-b border-lichen/60 relative w-full" data-sec-index="3">
+    <section class="v-section flex flex-col justify-center px-6 sm:px-10 md:px-12 lg:px-20 xl:px-24 pt-20 pb-8 sm:pt-24 sm:pb-12 bg-mist border-b border-lichen/60 relative w-full" data-sec-index="3">
       <div class="max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 md:gap-12 lg:gap-16 items-center my-auto">
         <div class="md:col-span-1 lg:col-span-6 space-y-6 sm:space-y-8">
           <div class="space-y-4">
@@ -507,7 +511,7 @@
       </div>
     </section>
 
-    <section class="v-section flex flex-col justify-center px-6 sm:px-10 md:px-12 lg:px-20 xl:px-24 py-16 sm:py-20 lg:py-24 bg-mist-soft border-b border-lichen/60 relative w-full" data-sec-index="4">
+    <section class="v-section flex flex-col justify-center px-6 sm:px-10 md:px-12 lg:px-20 xl:px-24 pt-20 pb-8 sm:pt-24 sm:pb-12 bg-mist-soft border-b border-lichen/60 relative w-full" data-sec-index="4">
       <div class="max-w-7xl mx-auto w-full space-y-12 sm:space-y-16 my-auto">
         <div class="max-w-3xl space-y-4">
           <h2 class="text-3xl sm:text-4xl md:text-5xl font-light tracking-tight text-ink">
@@ -538,7 +542,7 @@
       </div>
     </section>
 
-    <section class="v-section flex flex-col justify-center px-6 sm:px-10 md:px-12 lg:px-20 xl:px-24 py-16 sm:py-20 lg:py-24 bg-mist border-b border-lichen/60 relative w-full" data-sec-index="5">
+    <section class="v-section flex flex-col justify-center px-6 sm:px-10 md:px-12 lg:px-20 xl:px-24 pt-20 pb-8 sm:pt-24 sm:pb-12 bg-mist border-b border-lichen/60 relative w-full" data-sec-index="5">
       <div class="max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-12 lg:gap-16 items-start my-auto">
         <div class="md:col-span-5 space-y-6 sm:space-y-8">
           <div class="space-y-4">
@@ -561,6 +565,7 @@
               <div class="flex justify-between items-start">
                 <span class="font-mono text-2xl font-light text-ink">$38</span>
               </div>
+              <div class="font-mono text-[10px] text-ink-subtle uppercase tracking-wider">Tasting Allocation</div>
               <h3 class="text-xl sm:text-2xl font-normal text-ink">12 Cans</h3>
               <p class="text-xs text-ink-muted leading-relaxed font-normal">
                 Enough to find out if this becomes part of your week.
@@ -620,7 +625,7 @@
       </div>
     </section>
 
-    <footer class="v-section flex flex-col justify-between px-6 sm:px-10 md:px-12 lg:px-20 xl:px-24 py-16 sm:py-20 lg:py-24 bg-ink text-mist w-full" data-sec-index="6">
+    <footer class="v-section flex flex-col justify-between px-6 sm:px-10 md:px-12 lg:px-20 xl:px-24 pt-20 pb-8 sm:pt-24 sm:pb-12 bg-ink text-mist w-full" data-sec-index="6">
       <div class="max-w-7xl mx-auto w-full space-y-12 sm:space-y-16 my-auto">
         <div class="max-w-3xl border-l border-celadon/30 pl-6 sm:pl-8 py-2 space-y-4">
           <blockquote class="text-lg sm:text-2xl md:text-3xl font-light text-mist leading-relaxed font-sans">
