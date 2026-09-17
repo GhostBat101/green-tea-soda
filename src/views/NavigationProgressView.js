@@ -59,7 +59,7 @@ class NavigationProgressView {
     if (isMobile) {
       this.masterTrack.style.transform = "none";
     } else {
-      this.masterTrack.style.transform = `translateY(-${verticalSection * 100}%)`;
+      this.masterTrack.style.transform = `translate3d(0, -${verticalSection * 100}%, 0)`;
     }
   }
 
@@ -68,7 +68,7 @@ class NavigationProgressView {
     if (isMobile) {
       this.hTrack.style.transform = "none";
     } else {
-      this.hTrack.style.transform = `translateX(-${horizontalPanel * 100}vw)`;
+      this.hTrack.style.transform = `translate3d(-${horizontalPanel * 100}vw, 0, 0)`;
     }
 
     if (this.hStepIndicator) {
