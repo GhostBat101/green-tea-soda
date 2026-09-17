@@ -77,8 +77,11 @@
     }
 
     #master-track {
-      transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
       will-change: transform;
+      transform: translate3d(0, 0, 0);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
       height: 100%;
       width: 100%;
     }
@@ -98,22 +101,34 @@
     }
 
     #horizontal-section {
+      height: 100vh;
+      max-height: 100vh;
       overflow: hidden;
       position: relative;
+      display: flex;
+      flex-direction: column;
     }
 
     #h-track {
       display: flex;
+      flex: 1 1 0%;
+      min-height: 0;
       height: 100%;
       width: 400vw;
-      transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
       will-change: transform;
+      transform: translate3d(0, 0, 0);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
     }
 
     .h-panel {
       width: 100vw;
-      height: 100vh;
+      height: 100%;
       flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       overflow-y: auto;
       scrollbar-width: none;
     }
@@ -351,8 +366,8 @@
       </div>
     </section>
 
-    <section class="v-section p-0 bg-mist border-b border-lichen/60 relative w-full" data-sec-index="2" id="horizontal-section">
-      <div class="sticky top-0 z-20 px-6 sm:px-10 md:px-12 lg:px-20 xl:px-24 pt-6 md:pt-20 pb-4 bg-mist/95 backdrop-blur-sm border-b border-lichen flex items-center justify-between w-full">
+    <section class="v-section flex flex-col p-0 bg-mist border-b border-lichen/60 relative w-full overflow-hidden" data-sec-index="2" id="horizontal-section">
+      <div class="flex-shrink-0 z-20 px-6 sm:px-10 md:px-12 lg:px-20 xl:px-24 pt-4 md:pt-16 pb-3 md:pb-3.5 bg-mist/95 backdrop-blur-sm border-b border-lichen flex items-center justify-between w-full">
         <div>
           <span class="font-mono text-xs uppercase tracking-widest-caps text-ink font-semibold" id="h-step-indicator">STEP 01 / 04</span>
           <h2 class="text-lg sm:text-xl font-light text-ink">How It's Made</h2>
@@ -366,9 +381,9 @@
           </button>
         </div>
       </div>
-      <div id="h-track">
-        <div class="h-panel flex flex-col justify-center px-6 sm:px-10 md:px-12 lg:px-20 xl:px-24 pt-8 sm:pt-12 md:pt-36 pb-12 sm:pb-14 bg-mist">
-          <div class="max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 md:gap-10 lg:gap-16 items-center">
+      <div class="flex-1 min-h-0" id="h-track">
+        <div class="h-panel flex flex-col justify-center px-6 sm:px-10 md:px-12 lg:px-20 xl:px-24 py-4 md:py-6 bg-mist">
+          <div class="max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 md:gap-10 lg:gap-16 items-center my-auto">
             <div class="md:col-span-1 lg:col-span-6 space-y-4 sm:space-y-6">
               <h3 class="text-2xl sm:text-4xl md:text-3xl lg:text-5xl font-light tracking-tight text-ink">
                 The 21 Days Before We Pick Anything
@@ -384,8 +399,8 @@
             </div>
           </div>
         </div>
-        <div class="h-panel flex flex-col justify-center px-6 sm:px-10 md:px-12 lg:px-20 xl:px-24 pt-8 sm:pt-12 md:pt-36 pb-12 sm:pb-14 bg-mist-soft">
-          <div class="max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 md:gap-10 lg:gap-16 items-center">
+        <div class="h-panel flex flex-col justify-center px-6 sm:px-10 md:px-12 lg:px-20 xl:px-24 py-4 md:py-6 bg-mist-soft">
+          <div class="max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 md:gap-10 lg:gap-16 items-center my-auto">
             <div class="md:col-span-1 lg:col-span-6 space-y-4 sm:space-y-6">
               <h3 class="text-2xl sm:text-4xl md:text-3xl lg:text-5xl font-light tracking-tight text-ink">
                 Bubbles Done Differently
@@ -401,8 +416,8 @@
             </div>
           </div>
         </div>
-        <div class="h-panel flex flex-col justify-center px-6 sm:px-10 md:px-12 lg:px-20 xl:px-24 pt-8 sm:pt-12 md:pt-36 pb-12 sm:pb-14 bg-mist">
-          <div class="max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 md:gap-10 lg:gap-16 items-center">
+        <div class="h-panel flex flex-col justify-center px-6 sm:px-10 md:px-12 lg:px-20 xl:px-24 py-4 md:py-6 bg-mist">
+          <div class="max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 md:gap-10 lg:gap-16 items-center my-auto">
             <div class="md:col-span-1 lg:col-span-6 space-y-4 sm:space-y-6">
               <h3 class="text-2xl sm:text-4xl md:text-3xl lg:text-5xl font-light tracking-tight text-ink">
                 The 2pm Problem
@@ -418,8 +433,8 @@
             </div>
           </div>
         </div>
-        <div class="h-panel flex flex-col justify-center px-6 sm:px-10 md:px-12 lg:px-20 xl:px-24 pt-8 sm:pt-12 md:pt-36 pb-12 sm:pb-14 bg-mist-soft">
-          <div class="max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 md:gap-10 lg:gap-16 items-center">
+        <div class="h-panel flex flex-col justify-center px-6 sm:px-10 md:px-12 lg:px-20 xl:px-24 py-4 md:py-6 bg-mist-soft">
+          <div class="max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 md:gap-10 lg:gap-16 items-center my-auto">
             <div class="md:col-span-1 lg:col-span-6 space-y-4 sm:space-y-6">
               <h3 class="text-2xl sm:text-4xl md:text-3xl lg:text-5xl font-light tracking-tight text-ink">
                 Where the Can Goes After You're Done With It
