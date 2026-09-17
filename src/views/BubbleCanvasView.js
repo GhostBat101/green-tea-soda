@@ -24,11 +24,15 @@ class BubbleCanvasView {
   }
 
   resize() {
-    if (!this.canvas) return;
+    if (!this.canvas || !this.ctx) return;
+    const dpr = window.devicePixelRatio || 1;
     this.width = window.innerWidth;
     this.height = window.innerHeight;
-    this.canvas.width = this.width;
-    this.canvas.height = this.height;
+    this.canvas.width = this.width * dpr;
+    this.canvas.height = this.height * dpr;
+    this.canvas.style.width = `${this.width}px`;
+    this.canvas.style.height = `${this.height}px`;
+    this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
 
   spawnBubbles() {
