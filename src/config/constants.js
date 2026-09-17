@@ -77,9 +77,9 @@ const AUDIO_CONFIG = {
 };
 
 const SCROLL_CONFIG = {
-  wheelThrottleMs: 520,
+  wheelThrottleMs: 850,
   wheelThresholdPx: 25,
-  transitionDurationMs: 750,
+  transitionDurationMs: 850,
   mobileBreakpointPx: 768
 };
 
