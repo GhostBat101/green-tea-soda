@@ -7,7 +7,7 @@ An open-source **frontend skill showcase site** demonstrating high-craft digital
 ---
 
 ## 🎯 Purpose & Overview
-This project serves as a practical **skill showcase** demonstrating the synergy between advanced agentic design skills and vanilla web standards:
+This project serves as a practical **frontend engineering showcase** demonstrating modern web craftsmanship:
 - **Zero Framework Overhead**: Built purely with semantic HTML5, modern Tailwind CSS, and vanilla ES6 modules — no heavy React/Vue runtime dependencies.
 - **Editorial Design Language**: Crafted with natural Japanese tea aesthetics, disciplined typography scales, anti-italic rules, and tactile micro-interactions.
 - **Procedural Sensory Engineering**: Real-time Web Audio API sound synthesis and DPR-calibrated generative canvas simulations.
@@ -18,18 +18,6 @@ This project serves as a practical **skill showcase** demonstrating the synergy 
 - **Live Showcase URL:** [https://ghostbat101.github.io/green-tea-soda/](https://ghostbat101.github.io/green-tea-soda/)
 - **GitHub Repository:** [https://github.com/GhostBat101/green-tea-soda](https://github.com/GhostBat101/green-tea-soda)
 - **Stitch Project ID:** `5771049770762366211`
-
----
-
-## 🛠️ Skills Showcased
-
-| Skill | Demonstrated Capabilities |
-| :--- | :--- |
-| **`impeccable`** | High-craft visual balance, responsive whitespace calibration, natural palette (`mist`, `celadon`, `lichen`, `ink`), and accessible color contrast. |
-| **`frontend-design`** | Editorial layout composition, intentional typographic pairings (**Public Sans** + **JetBrains Mono**), and avoidance of generic template slop. |
-| **`ponytail`** | Shortest-path, minimal implementation leveraging native web standards (Web Audio API, Canvas 2D, CSS scroll-snap) without bloated npm dependencies. |
-| **`algorithmic-art`** | Procedural 2D canvas simulation rendering floating micro-bubbles with device pixel ratio (DPR) scaling for crisp high-density displays. |
-| **`systematic-debugging`** | Multi-breakpoint testing, isolated wheel gesture throttling (750ms / 25px threshold), and graceful desktop scrolljack to mobile touch unbinding. |
 
 ---
 
@@ -74,11 +62,10 @@ green-tea-soda/
 
 ---
 
-## 📐 Governance & Code Craft Standards
+## 📐 Code Craft Standards
 * **Zero-Comment Policy**: Clean, self-documenting code with zero inline/block comments in code bodies (only a 1–2 line header comment per file).
 * **Top-Down Variable Consolidation**: Strict structure flowing from imports $\rightarrow$ constants & DOM references $\rightarrow$ classes $\rightarrow$ exports.
 * **One Commit Per File**: Every single file modification is audited and committed individually.
-* **Adversarial Audit**: Verified by an automated subagent audit with a release score of **98 / 100**.
 
 ---
 
