@@ -10,6 +10,7 @@ class AudioModel {
     this.ambientSource = null;
     this.ambientFilter = null;
     this.ambientGain = null;
+    this.ambientStopTimer = null;
     this.isAmbientPlaying = false;
     this.subscribers = new Set();
   }
@@ -55,20 +56,32 @@ class AudioModel {
     const ctx = this.ensureAudioContext();
     if (!ctx) return false;
 
+    if (this.ambientStopTimer) {
+      clearTimeout(this.ambientStopTimer);
+      this.ambientStopTimer = null;
+    }
+
     if (this.isAmbientPlaying) {
       if (this.ambientGain) {
         this.ambientGain.gain.exponentialRampToValueAtTime(0.00001, ctx.currentTime + 0.4);
-        setTimeout(() => {
+        this.ambientStopTimer = setTimeout(() => {
           if (this.ambientSource) {
             try { this.ambientSource.stop(); } catch (_) {}
             this.ambientSource.disconnect();
             this.ambientSource = null;
           }
+          this.ambientStopTimer = null;
         }, 450);
       }
       this.isAmbientPlaying = false;
       this.notify();
       return false;
+    }
+
+    if (this.ambientSource) {
+      try { this.ambientSource.stop(); } catch (_) {}
+      this.ambientSource.disconnect();
+      this.ambientSource = null;
     }
 
     const noiseBuffer = this.generateNoiseBuffer(AUDIO_CONFIG.noiseDuration);
