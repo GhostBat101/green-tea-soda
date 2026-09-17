@@ -65,6 +65,14 @@ class ScrollController {
           this.scrollModel.prevHorizontal();
           this.scrollModel.markScrollTime(now);
           return;
+        } else if (deltaX > 0 && currentHPanel >= 3) {
+          this.scrollModel.nextVertical();
+          this.scrollModel.markScrollTime(now);
+          return;
+        } else if (deltaX < 0 && currentHPanel <= 0) {
+          this.scrollModel.prevVertical();
+          this.scrollModel.markScrollTime(now);
+          return;
         }
       }
 
