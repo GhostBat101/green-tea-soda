@@ -13,6 +13,7 @@ class CartDrawerView {
     this.subtotalEl = document.querySelector(SELECTORS.drawerSubtotal);
     this.shippingEl = document.querySelector(SELECTORS.drawerShipping);
     this.totalEl = document.querySelector(SELECTORS.drawerTotal);
+    this.checkoutBtn = document.querySelector(SELECTORS.proceedCheckoutBtn);
     this.isOpen = false;
     this.onQuantityChangeCallback = null;
     this.onRemoveCallback = null;
@@ -28,6 +29,17 @@ class CartDrawerView {
     }
     if (this.backdrop) {
       this.backdrop.addEventListener("click", () => this.close());
+    }
+    if (this.checkoutBtn) {
+      this.checkoutBtn.addEventListener("click", () => {
+        const originalText = this.checkoutBtn.textContent;
+        this.checkoutBtn.textContent = "ALLOCATION CONFIRMED · BATCH 001";
+        this.checkoutBtn.classList.add("bg-accent");
+        setTimeout(() => {
+          this.checkoutBtn.textContent = originalText;
+          this.checkoutBtn.classList.remove("bg-accent");
+        }, 2000);
+      });
     }
     window.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && this.isOpen) {
@@ -47,7 +59,8 @@ class CartDrawerView {
   open() {
     if (!this.drawer || !this.backdrop) return;
     this.isOpen = true;
-    this.drawer.classList.remove("translate-x-full", "translate-y-full");
+    this.drawer.classList.remove("translate-y-full", "md:translate-x-full");
+    this.drawer.classList.add("translate-y-0", "md:translate-x-0");
     this.backdrop.classList.remove("opacity-0", "pointer-events-none");
     this.backdrop.classList.add("opacity-100");
   }
@@ -55,7 +68,8 @@ class CartDrawerView {
   close() {
     if (!this.drawer || !this.backdrop) return;
     this.isOpen = false;
-    this.drawer.classList.add("translate-x-full", "translate-y-full");
+    this.drawer.classList.remove("translate-y-0", "md:translate-x-0");
+    this.drawer.classList.add("translate-y-full", "md:translate-x-full");
     this.backdrop.classList.remove("opacity-100");
     this.backdrop.classList.add("opacity-0", "pointer-events-none");
   }
