@@ -1,24 +1,20 @@
-# User-requested ignored files
+# .gitignore: VCS exclusion rules for Green Tea Soda repository. Interfaces with Git.
 Green Tea Soda — Responsive Auto Layout & Adaptive Scroll.html
 Green Tea Soda — Responsive Auto Layout & Adaptive Scroll.png
 Green Tea Soda - Responsive Auto Layout & Adaptive Scroll.html
 Green Tea Soda - Responsive Auto Layout & Adaptive Scroll.png
-index.html
 screen_d9b27385dd95471eb3c86dfc34d31937.html
 screen_d9b27385dd95471eb3c86dfc34d31937.png
-
-# Project rule files & assistant configs
+.agents
+.agents/
 GEMINI.md
 AGENTS.md
 CLAUDE.md
-.agents/rules/
 .cursor/
 .cursorrules
 .claude/
 *.rule
 *.rules
-
-# System files
 Thumbs.db
 Desktop.ini
 .DS_Store
