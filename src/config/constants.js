@@ -1,10 +1,10 @@
 // constants.js: Canonical system configuration and selectors. Interfaces with all models, views, and controllers.
 
 const SELECTORS = {
-  masterViewport: "#master-viewport",
   masterTrack: "#master-track",
   telemetryProgressBar: "#telemetry-progress-bar",
-  navIndicator: "#nav-indicator",
+  navHeaderLinks: "header nav .nav-header-link",
+  navJumps: ".nav-jump",
   soundSynthesizerBtn: "#sound-synthesizer-btn",
   cartDrawerTrigger: "#cart-drawer-trigger",
   cartCountBadge: "#cart-count",
@@ -15,9 +15,9 @@ const SELECTORS = {
   drawerSubtotal: "#drawer-subtotal",
   drawerShipping: "#drawer-shipping",
   drawerTotal: "#drawer-total",
+  proceedCheckoutBtn: "#proceed-checkout-btn",
   heroTiltCard: "#hero-tilt-card",
   specimenImg: "#specimen-img",
-  horizontalSection: "#horizontal-section",
   hTrack: "#h-track",
   hPrevBtn: "#h-prev-btn",
   hNextBtn: "#h-next-btn",
@@ -34,10 +34,7 @@ const SELECTORS = {
   qty24Minus: "#qty-24-minus",
   qty24Plus: "#qty-24-plus",
   add12Btn: "#add-12-btn",
-  add24Btn: "#add-24-btn",
-  navJumps: ".nav-jump",
-  verticalSections: ".v-section",
-  horizontalPanels: ".h-panel"
+  add24Btn: "#add-24-btn"
 };
 
 const SECTIONS = [
@@ -55,14 +52,14 @@ const PRODUCTS = {
     id: "batch-12",
     title: "12-Can Tasting Batch",
     unitPrice: 38,
-    unitSize: "12 x 250ml",
+    unitSize: "12 x 330ml",
     subtext: "Batch 001 · First Harvest Uji"
   },
   case24: {
     id: "case-24",
     title: "24-Can Cellar Case",
     unitPrice: 68,
-    unitSize: "24 x 250ml",
+    unitSize: "24 x 330ml",
     subtext: "Batch 001 · Complimentary Cold Shipping"
   }
 };
