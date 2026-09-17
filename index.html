@@ -221,12 +221,12 @@
     <span class="hidden lg:inline-block font-mono text-[10px] text-ink-subtle uppercase tracking-ultra-wide pl-4 border-l border-lichen">Batch 001 — Sealed this month</span>
   </div>
   <nav class="hidden md:flex items-center space-x-6 lg:space-x-8 font-mono text-xs text-ink-subtle">
-    <button class="nav-jump hover:text-ink transition-colors uppercase tracking-wider text-ink font-semibold" data-target-sec="0">The Drink</button>
-    <button class="nav-jump hover:text-ink transition-colors uppercase tracking-wider" data-target-sec="1">What's Inside</button>
-    <button class="nav-jump hover:text-ink transition-colors uppercase tracking-wider" data-target-sec="2">How It's Made</button>
-    <button class="nav-jump hover:text-ink transition-colors uppercase tracking-wider" data-target-sec="3">Why It Matters</button>
-    <button class="nav-jump hover:text-ink transition-colors uppercase tracking-wider" data-target-sec="4">The Proof</button>
-    <button class="nav-jump hover:text-ink transition-colors uppercase tracking-wider" data-target-sec="5">Order</button>
+    <button class="nav-jump nav-header-link hover:text-ink transition-colors uppercase tracking-wider text-ink font-semibold" data-target-sec="0">The Drink</button>
+    <button class="nav-jump nav-header-link hover:text-ink transition-colors uppercase tracking-wider" data-target-sec="1">What's Inside</button>
+    <button class="nav-jump nav-header-link hover:text-ink transition-colors uppercase tracking-wider" data-target-sec="2">How It's Made</button>
+    <button class="nav-jump nav-header-link hover:text-ink transition-colors uppercase tracking-wider" data-target-sec="3">Why It Matters</button>
+    <button class="nav-jump nav-header-link hover:text-ink transition-colors uppercase tracking-wider" data-target-sec="4">The Proof</button>
+    <button class="nav-jump nav-header-link hover:text-ink transition-colors uppercase tracking-wider" data-target-sec="5">Order</button>
   </nav>
   <div class="flex items-center space-x-3 sm:space-x-4">
     <button class="flex items-center space-x-2 font-mono text-xs text-ink-muted hover:text-ink transition-colors px-3 py-1.5 border border-lichen rounded-full bg-mist-soft hover:bg-celadon" id="sound-synthesizer-btn" title="Toggle Procedural Audio Engine">
@@ -678,54 +678,54 @@
   </div>
 </div>
 
-<aside class="fixed md:inset-y-0 bottom-0 md:bottom-auto right-0 z-50 w-full md:max-w-md max-h-[85vh] md:max-h-full h-auto md:h-full bg-[#fbfdf9] border-t md:border-t-0 md:border-l border-[#e2ebe0] rounded-t-3xl md:rounded-t-none shadow-2xl transform translate-y-full md:translate-y-0 md:translate-x-full transition-transform duration-300 ease-in-out flex flex-col justify-between" id="cart-drawer">
+<aside class="fixed md:inset-y-0 bottom-0 md:bottom-auto right-0 z-50 w-full md:max-w-md max-h-[85vh] md:max-h-full h-auto md:h-full bg-mist border-t md:border-t-0 md:border-l border-lichen rounded-t-3xl md:rounded-t-none shadow-2xl transform translate-y-full md:translate-y-0 md:translate-x-full transition-transform duration-300 ease-in-out flex flex-col justify-between" id="cart-drawer">
   <div class="w-12 h-1 bg-lichen rounded-full mx-auto mt-3 md:hidden"></div>
-  <div class="p-5 sm:p-6 lg:p-8 border-b border-[#e2ebe0] flex justify-between items-center bg-[#fbfdf9]">
+  <div class="p-5 sm:p-6 lg:p-8 border-b border-lichen flex justify-between items-center bg-mist">
     <div class="space-y-0.5">
       <div class="flex items-center gap-2">
-        <span class="w-1.5 h-1.5 rounded-full bg-[#122116] animate-pulse"></span>
-        <h4 class="font-mono text-xs font-semibold uppercase tracking-widest-caps text-[#122116]">Your Batch</h4>
+        <span class="w-1.5 h-1.5 rounded-full bg-ink animate-pulse"></span>
+        <h4 class="font-mono text-xs font-semibold uppercase tracking-widest-caps text-ink">Your Batch</h4>
       </div>
-      <span class="font-mono text-[10px] text-[#5b6f5f] tracking-wider uppercase">Allocation Reservation · Batch 001</span>
+      <span class="font-mono text-[10px] text-ink-subtle tracking-wider uppercase">Allocation Reservation · Batch 001</span>
     </div>
-    <button class="font-mono text-xs text-[#122116] hover:text-[#405445] p-2 rounded-full hover:bg-[#edf4ea] transition-colors" id="drawer-close-btn">[CLOSE ✕]</button>
+    <button class="font-mono text-xs text-ink hover:text-ink-muted p-2 rounded-full hover:bg-celadon transition-colors" id="drawer-close-btn">[CLOSE ✕]</button>
   </div>
   <div class="p-5 sm:p-6 lg:p-8 space-y-4 sm:space-y-5 overflow-y-auto flex-1 font-mono text-xs">
-    <div class="p-3.5 bg-[#f4f8f2] border border-[#dbe6d7] rounded-xl flex items-start gap-3">
-      <span class="text-[#2d4432] text-xs mt-0.5">❄</span>
+    <div class="p-3.5 bg-mist-soft border border-lichen rounded-xl flex items-start gap-3">
+      <span class="text-accent text-xs mt-0.5">❄</span>
       <div class="space-y-0.5">
-        <div class="text-[#2d4432] font-medium text-[11px]">Cold-Chain Dispatch</div>
-        <div class="text-[#5b6f5f] text-[10px] leading-relaxed">Batch 001 · Ships within 48 hours in insulated kraft packaging</div>
+        <div class="text-accent font-medium text-[11px]">Cold-Chain Dispatch</div>
+        <div class="text-ink-subtle text-[10px] leading-relaxed">Batch 001 · Ships within 48 hours in insulated kraft packaging</div>
       </div>
     </div>
     <div class="space-y-4" id="drawer-items-container"></div>
   </div>
-  <div class="p-5 sm:p-6 lg:p-8 border-t border-[#e2ebe0] bg-[#fbfdf9] space-y-4 sm:space-y-5 font-mono text-xs">
-    <div class="space-y-2 border-b border-[#e2ebe0] pb-3 sm:pb-4">
-      <div class="flex justify-between text-[#4a5c4e] text-[11px]">
+  <div class="p-5 sm:p-6 lg:p-8 border-t border-lichen bg-mist space-y-4 sm:space-y-5 font-mono text-xs">
+    <div class="space-y-2 border-b border-lichen pb-3 sm:pb-4">
+      <div class="flex justify-between text-ink-muted text-[11px]">
         <span>Subtotal</span>
         <span id="drawer-subtotal">$0.00</span>
       </div>
-      <div class="flex justify-between text-[#4a5c4e] text-[11px]">
+      <div class="flex justify-between text-ink-muted text-[11px]">
         <span>Shipping</span>
-        <span class="text-[#122116] font-medium" id="drawer-shipping">Complimentary</span>
+        <span class="text-ink font-medium" id="drawer-shipping">Complimentary</span>
       </div>
-      <div class="flex justify-between items-center text-base font-medium text-[#122116] pt-1 sm:pt-2">
+      <div class="flex justify-between items-center text-base font-medium text-ink pt-1 sm:pt-2">
         <span>Total</span>
-        <span class="text-base sm:text-lg font-medium text-[#122116]" id="drawer-total">$0.00</span>
+        <span class="text-base sm:text-lg font-medium text-ink" id="drawer-total">$0.00</span>
       </div>
     </div>
-    <button class="w-full py-3.5 sm:py-4 bg-[#122116] hover:bg-[#1b2e20] text-[#fbfdf9] uppercase tracking-ultra-wide font-mono text-xs transition-all shadow-md" id="proceed-checkout-btn" type="button">
+    <button class="w-full py-3.5 sm:py-4 bg-ink hover:bg-accent text-mist uppercase tracking-ultra-wide font-mono text-xs transition-all shadow-md" id="proceed-checkout-btn" type="button">
       Proceed to Checkout →
     </button>
-    <div class="text-center text-[10px] text-[#5b6f5f] leading-relaxed flex items-center justify-center gap-2">
+    <div class="text-center text-[10px] text-ink-subtle leading-relaxed flex items-center justify-center gap-2">
       <span>100% recyclable packaging</span>
       <span>·</span>
       <span>Carbon-neutral delivery</span>
     </div>
   </div>
 </aside>
-<div class="fixed inset-0 bg-[#f7faf5]/70 backdrop-blur-md z-40 opacity-0 pointer-events-none transition-opacity duration-300" id="drawer-backdrop"></div>
+<div class="fixed inset-0 bg-mist/70 backdrop-blur-md z-40 opacity-0 pointer-events-none transition-opacity duration-300" id="drawer-backdrop"></div>
 
 <script src="./src/controllers/AppController.js" type="module"></script>
 </body>
