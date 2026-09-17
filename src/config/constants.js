@@ -21,7 +21,6 @@ const SELECTORS = {
   hTrack: "#h-track",
   hPrevBtn: "#h-prev-btn",
   hNextBtn: "#h-next-btn",
-  hStepIndicator: "#h-step-indicator",
   triggerSampleBtn: "#trigger-sample-btn",
   toggleAmbientHissBtn: "#toggle-ambient-hiss-btn",
   resonanceStatus: "#resonance-status",
@@ -65,15 +64,10 @@ const PRODUCTS = {
 };
 
 const AUDIO_CONFIG = {
-  ambientFilterFreq: 1800,
-  ambientFilterQ: 0.8,
-  ambientGain: 0.012,
-  ambientLfoFreq: 0.45,
-  snapStartFreq: 620,
-  snapEndFreq: 180,
-  gasReleaseFreq: 3200,
-  fizzResonanceFreq: 2200,
-  noiseDuration: 3.0
+  canOpenPath: "./audio/can-open.mp3",
+  sodaFizzPath: "./audio/soda-fizz.mp3",
+  fizzGain: 0.35,
+  canOpenGain: 0.8
 };
 
 const SCROLL_CONFIG = {
