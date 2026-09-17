@@ -65,19 +65,21 @@ const PRODUCTS = {
 };
 
 const AUDIO_CONFIG = {
-  ambientFilterFreq: 3200,
-  ambientFilterQ: 2.0,
-  ambientGain: 0.025,
-  snapStartFreq: 700,
-  snapEndFreq: 110,
-  burstFilterFreq: 2700,
-  noiseDuration: 2.0
+  ambientFilterFreq: 1800,
+  ambientFilterQ: 0.8,
+  ambientGain: 0.012,
+  ambientLfoFreq: 0.45,
+  snapStartFreq: 620,
+  snapEndFreq: 180,
+  gasReleaseFreq: 3200,
+  fizzResonanceFreq: 2200,
+  noiseDuration: 3.0
 };
 
 const SCROLL_CONFIG = {
-  wheelThrottleMs: 750,
+  wheelThrottleMs: 520,
   wheelThresholdPx: 25,
-  transitionDurationMs: 950,
+  transitionDurationMs: 750,
   mobileBreakpointPx: 768
 };
 
