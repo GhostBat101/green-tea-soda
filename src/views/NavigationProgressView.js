@@ -9,7 +9,6 @@ class NavigationProgressView {
     this.progressBar = document.querySelector(SELECTORS.telemetryProgressBar);
     this.masterTrack = document.querySelector(SELECTORS.masterTrack);
     this.hTrack = document.querySelector(SELECTORS.hTrack);
-    this.hStepIndicator = document.querySelector(SELECTORS.hStepIndicator);
     this.hPrevBtn = document.querySelector(SELECTORS.hPrevBtn);
     this.hNextBtn = document.querySelector(SELECTORS.hNextBtn);
     this.navJumps = document.querySelectorAll(SELECTORS.navJumps);
@@ -70,12 +69,6 @@ class NavigationProgressView {
     } else {
       this.hTrack.style.transform = `translate3d(-${horizontalPanel * 100}vw, 0, 0)`;
     }
-
-    if (this.hStepIndicator) {
-      const stepNumber = String(horizontalPanel + 1).padStart(2, "0");
-      this.hStepIndicator.textContent = `STEP ${stepNumber} / 04`;
-    }
-
     if (this.hPrevBtn) {
       if (horizontalPanel === 0) {
         this.hPrevBtn.classList.add("opacity-30", "pointer-events-none");
