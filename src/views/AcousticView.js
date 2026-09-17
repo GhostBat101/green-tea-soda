@@ -48,6 +48,7 @@ class AcousticView {
 
     if (this.headerSoundBtn) {
       const dot = this.headerSoundBtn.querySelector(".rounded-full");
+      const label = this.headerSoundBtn.querySelector("span:last-child");
       if (dot) {
         if (isPlaying) {
           dot.classList.add("animate-ping", "bg-emerald-600");
@@ -56,6 +57,9 @@ class AcousticView {
           dot.classList.remove("animate-ping", "bg-emerald-600");
           dot.classList.add("bg-ink-muted");
         }
+      }
+      if (label) {
+        label.textContent = isPlaying ? "SOUND ON" : "SOUND OFF";
       }
     }
 
