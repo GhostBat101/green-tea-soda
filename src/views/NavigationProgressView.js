@@ -68,7 +68,7 @@ class NavigationProgressView {
     if (isMobile) {
       this.hTrack.style.transform = "none";
     } else {
-      this.hTrack.style.transform = `translateX(-${horizontalPanel * 100}%)`;
+      this.hTrack.style.transform = `translateX(-${horizontalPanel * 100}vw)`;
     }
 
     if (this.hStepIndicator) {
